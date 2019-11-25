@@ -4,11 +4,9 @@ import { ScrollView, Image, View, Text, StyleSheet } from 'react-native';
 const AboutScreen = props => {
 
     return (
-
-            <View style={styles.container}>
-               <Text>About</Text>
-            </View>
-      
+        <View style={styles.container}>
+            <Text>About</Text>
+        </View>
     );
 };
 
@@ -24,7 +22,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFF',
         alignItems: 'center',
         justifyContent: 'center',
-      },
+    },
 });
 
 export default AboutScreen;
