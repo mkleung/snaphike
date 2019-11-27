@@ -2,9 +2,21 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import AppNavigator from './navigation/AppNavigator'
 
+// Redux
+import { createStore, combineReducers, applyMiddleware } from 'redux'
+import { Provider } from 'react-redux'
+import ReduxThunk from 'redux-thunk'
+import placesReducer from './store/places-reducer'
+
+const rootReducer = combineReducers({
+  places: placesReducer
+})
+
 export default function App() {
   return (
-    <AppNavigator />
+    <Provider store={createStore(rootReducer, applyMiddleware(ReduxThunk))}>
+      <AppNavigator />
+    </Provider>
   );
 }
 

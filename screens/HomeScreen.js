@@ -7,25 +7,25 @@ import { Platform } from 'react-native'
 const HomeScreen = props => {
     return (
         <View style={styles.container}>
-            <Text>Home</Text>
+            <Text>Hello World!</Text>
         </View>
     );
 };
 
 // NAVIGATION
 HomeScreen.navigationOptions = navData => {
-    return {
-        headerTitle: 'HomeScreen ',
-        headerRight: 
-            (<HeaderButtons HeaderButtonComponent={HeaderButton}>
-                <Item
-                    title="About"
-                    iconName={Platform.OS === 'android' ? 'md-add' : 'ios-add'}
-                    onPress={() => {
-                        navData.navigation.navigate("About")
-                    }}
-                />
-                </HeaderButtons>
+    return {
+        headerTitle: 'HomeScreen ',
+        headerRight:
+            (<HeaderButtons HeaderButtonComponent={HeaderButton}>
+                <Item
+                    title="About"
+                    iconName={Platform.OS === 'android' ? 'md-add' : 'ios-add'}
+                    onPress={() => {
+                        navData.navigation.navigate("NewPlace")
+                    }}
+                />
+            </HeaderButtons>
             )
     }
 };
