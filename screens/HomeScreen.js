@@ -1,14 +1,23 @@
 import React from 'react';
 import HeaderButton from '../components/HeaderButton';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
-import { ScrollView, Image, View, Text, StyleSheet } from 'react-native';
+import { ScrollView, Image, View, Text, StyleSheet, Button } from 'react-native';
 import { Platform } from 'react-native'
 
 const HomeScreen = props => {
+
+    const { navigate } = props.navigation;
+
     return (
         <View style={styles.container}>
             <Text>Hello World!</Text>
+            <Button
+                title="View All Places"
+                onPress={() => navigate('ListPlaces')}
+            />
         </View>
+
+
     );
 };
 

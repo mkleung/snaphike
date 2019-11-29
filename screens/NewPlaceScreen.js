@@ -24,7 +24,8 @@ const NewPlaceScreen = props => {
 
 
     const savePlaceHandler = () => {
-        dispatch(placesActions.addPlace(titleValue, selectedImage, selectedLocation));
+        console.log(titleValue)
+        dispatch(placesActions.addPlace(titleValue));
         props.navigation.goBack();
     };
 

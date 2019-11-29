@@ -4,10 +4,12 @@ import { createStackNavigator } from 'react-navigation-stack'
 import HomeScreen from '../screens/HomeScreen'
 import NewPlaceScreen from '../screens/NewPlaceScreen'
 import Colors from '../constants/Colors'
+import PlacesListScreen from '../screens/PlacesListScreen'
 
 const AppNavigator = createStackNavigator({
     Home: HomeScreen,
-    NewPlace: NewPlaceScreen
+    NewPlace: NewPlaceScreen,
+    ListPlaces: PlacesListScreen,
 }, {
     defaultNavigationOptions: {
         headerStyle: {
