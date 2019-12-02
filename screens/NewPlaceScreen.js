@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     ScrollView,
     View,
@@ -7,36 +7,58 @@ import {
     TextInput,
     StyleSheet
 } from 'react-native';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Colors from '../constants/Colors';
 import * as placesActions from '../store/places-actions';
 
 const NewPlaceScreen = props => {
     const [titleValue, setTitleValue] = useState('');
+    const [locationValue, setLocationValue] = useState('');
+    const [id, setId] = useState("0")
 
     const dispatch = useDispatch();
 
+    const places = useSelector(state => state.places.places);
+
+
+    // Constructor
+    useEffect(() => {
+        if (places.length > 0) {
+            var lastItem = places.slice(-1)[0];
+            setId(String(parseInt(lastItem.id) + 1))
+        }
+    }, []);
+
+
     const titleChangeHandler = text => {
-        // you could add validation
         setTitleValue(text);
     };
 
+    const locationChangeHandler = text => {
+        setLocationValue(text);
+    };
 
     const savePlaceHandler = () => {
-        console.log(titleValue)
-        dispatch(placesActions.addPlace(titleValue));
+        dispatch(placesActions.addPlace(id, titleValue, locationValue));
         props.navigation.goBack();
     };
 
     return (
         <ScrollView>
             <View style={styles.form}>
-                <Text style={styles.label}>Title</Text>
+
                 <TextInput
                     style={styles.textInput}
                     onChangeText={titleChangeHandler}
                     value={titleValue}
+                    placeholder="Title"
+                />
+                <TextInput
+                    style={styles.textInput}
+                    onChangeText={locationChangeHandler}
+                    value={locationValue}
+                    placeholder="Location"
                 />
                 <Button
                     title="Save Place"

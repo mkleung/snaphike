@@ -1,33 +1,29 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { View, Text, StyleSheet, Platform, FlatList, TouchableOpacity } from 'react-native';
-import { HeaderButtons, Item } from 'react-navigation-header-buttons';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
-import HeaderButton from '../components/HeaderButton';
-import * as placesActions from '../store/places-actions';
 import Colors from '../constants/Colors';
 
 const PlacesListScreen = props => {
     const places = useSelector(state => state.places.places);
-    console.log(places)
-    // const dispatch = useDispatch();
 
-    // useEffect(() => {
-    //     dispatch(placesActions.loadPlaces());
-    // }, [dispatch]);
+    const onSelect = (title) => {
+        props.navigation.navigate('PlaceDetail', {
+            placeTitle: title
+        });
+    }
 
     return (
         <View>
-            <Text>PlacesList</Text>
             <FlatList
                 data={places}
-                keyExtractor={item => item.title}
+                keyExtractor={item => item.id}
                 renderItem={itemData => (
-
                     <TouchableOpacity
+                        onPress={() => onSelect(itemData.item.title)}
                         style={styles.placeItem}>
                         <View style={styles.infoContainer}>
-                            <Text style={styles.title}>{itemData.item.title}</Text>
+                            <Text style={styles.title}>{itemData.item.id} - {itemData.item.title}, {itemData.item.location}</Text>
                         </View>
                     </TouchableOpacity>
                 )}
@@ -78,23 +74,3 @@ const styles = StyleSheet.create({
 });
 
 export default PlacesListScreen;
-
-
-
-{/* <FlatList
-            data={places}
-            keyExtractor={item => item.title}
-            renderItem={itemData => (
-
-                <TouchableOpacity onPress={() => {
-                    props.navigation.navigate('PlaceDetail', {
-                        placeTitle: itemData.item.title
-                    });
-                }}
-                    style={styles.placeItem}>
-                    <View style={styles.infoContainer}>
-                        <Text style={styles.title}>{itemData.item.title}</Text>
-                    </View>
-                </TouchableOpacity>
-            )}
-        /> */}
