@@ -1,15 +1,9 @@
 import React from 'react';
 import { ScrollView, Image, View, Text, StyleSheet } from 'react-native';
-import { useSelector } from 'react-redux';
-
 import Colors from '../constants/Colors';
 
 const DetailScreen = props => {
     const placeTitle = props.navigation.getParam('placeTitle');
-    // const selectedPlace = useSelector(state =>
-    //     state.places.places.find(place => place.id === placeId)
-    // );
-
     return (
         <ScrollView contentContainerStyle={{ alignItems: 'center' }}>
             <View style={styles.locationContainer}>
