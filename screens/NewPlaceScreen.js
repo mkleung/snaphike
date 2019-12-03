@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
     ScrollView,
     View,
@@ -18,16 +18,6 @@ const NewPlaceScreen = props => {
 
     const dispatch = useDispatch();
 
-    const places = useSelector(state => state.places.places);
-
-    const titleChangeHandler = text => {
-        setTitleValue(text);
-    };
-
-    const locationChangeHandler = text => {
-        setLocationValue(text);
-    };
-
     const savePlaceHandler = () => {
         dispatch(placesActions.addPlace(titleValue, locationValue));
         props.navigation.goBack();
@@ -36,16 +26,15 @@ const NewPlaceScreen = props => {
     return (
         <ScrollView>
             <View style={styles.form}>
-
                 <TextInput
                     style={styles.textInput}
-                    onChangeText={titleChangeHandler}
+                    onChangeText={(text) => setTitleValue(text)}
                     value={titleValue}
                     placeholder="Title"
                 />
                 <TextInput
                     style={styles.textInput}
-                    onChangeText={locationChangeHandler}
+                    onChangeText={(text) => { setLocationValue(text); }}
                     value={locationValue}
                     placeholder="Location"
                 />
