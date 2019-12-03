@@ -15,21 +15,10 @@ import * as placesActions from '../store/places-actions';
 const NewPlaceScreen = props => {
     const [titleValue, setTitleValue] = useState('');
     const [locationValue, setLocationValue] = useState('');
-    const [id, setId] = useState("0")
 
     const dispatch = useDispatch();
 
     const places = useSelector(state => state.places.places);
-
-
-    // Constructor
-    useEffect(() => {
-        if (places.length > 0) {
-            var lastItem = places.slice(-1)[0];
-            setId(String(parseInt(lastItem.id) + 1))
-        }
-    }, []);
-
 
     const titleChangeHandler = text => {
         setTitleValue(text);
@@ -40,7 +29,7 @@ const NewPlaceScreen = props => {
     };
 
     const savePlaceHandler = () => {
-        dispatch(placesActions.addPlace(id, titleValue, locationValue));
+        dispatch(placesActions.addPlace(titleValue, locationValue));
         props.navigation.goBack();
     };
 

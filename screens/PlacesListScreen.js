@@ -17,7 +17,7 @@ const PlacesListScreen = props => {
         <View>
             <FlatList
                 data={places}
-                keyExtractor={item => item.id}
+                keyExtractor={(item, index) => index.toString()}
                 renderItem={itemData => (
                     <TouchableOpacity
                         onPress={() => onSelect(itemData.item.title)}
