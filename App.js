@@ -8,6 +8,13 @@ import { Provider } from 'react-redux'
 import ReduxThunk from 'redux-thunk'
 import placesReducer from './store/places-reducer'
 
+// Database
+import { init } from './database/db'
+
+init()
+  .then(() => { console.log("Initialize Database") })
+  .catch(err => { console.log("Initialize Failed") });
+
 const rootReducer = combineReducers({
   places: placesReducer
 })
