@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Platform, FlatList, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Platform, Image, FlatList, TouchableOpacity } from 'react-native';
 import { useSelector } from 'react-redux';
 
 import Colors from '../constants/Colors';
@@ -22,6 +22,7 @@ const PlacesListScreen = props => {
                     <TouchableOpacity
                         onPress={() => onSelect(itemData.item.title)}
                         style={styles.placeItem}>
+                        <Image style={styles.image} source={{ uri: itemData.item.imageUri }} />
                         <View style={styles.infoContainer}>
                             <Text style={styles.title}>{itemData.item.id} - {itemData.item.title}, {itemData.item.location}</Text>
                         </View>

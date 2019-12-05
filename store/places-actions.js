@@ -1,6 +1,6 @@
 export const ADD_PLACE = 'ADD_PLACE';
 let previousId = 0;
-export const addPlace = (title, location) => {
+export const addPlace = (title, location, image) => {
     let id = previousId + 1;
     previousId = id;
     return {
@@ -8,7 +8,8 @@ export const addPlace = (title, location) => {
         placeData: {
             id: id,
             title: title,
-            location: location
+            location: location,
+            image: image
         }
     }
 };

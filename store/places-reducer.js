@@ -11,8 +11,10 @@ export default (state = initialState, action) => {
             const newPlace = new Place(
                 action.placeData.id,
                 action.placeData.title,
-                action.placeData.location
+                action.placeData.location,
+                action.placeData.image,
             );
+            console.log(newPlace)
             return {
                 places: state.places.concat(newPlace)
             };

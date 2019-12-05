@@ -16,15 +16,23 @@ import ImagePicker from '../components/ImagePicker'
 
 
 const NewPlaceScreen = props => {
+
+    // ADD PLACE
     const [titleValue, setTitleValue] = useState('');
     const [locationValue, setLocationValue] = useState('');
-
     const dispatch = useDispatch();
 
     const savePlaceHandler = () => {
-        dispatch(placesActions.addPlace(titleValue, locationValue));
+        dispatch(placesActions.addPlace(titleValue, locationValue, selectedImage));
         props.navigation.goBack();
     };
+
+    // SET IMAGE
+    const [selectedImage, setSelectedImage] = useState()
+
+    const imageTakenHandler = imagePath => {
+        setSelectedImage(imagePath)
+    }
 
     return (
         <ScrollView>
@@ -41,7 +49,7 @@ const NewPlaceScreen = props => {
                     value={locationValue}
                     placeholder="Location"
                 />
-                <ImagePicker />
+                <ImagePicker onImageTaken={imageTakenHandler} />
                 <Button
                     title="Save Place"
                     color={Colors.primary}
