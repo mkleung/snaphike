@@ -1,5 +1,5 @@
 import * as FileSystem from 'expo-file-system'
-
+import { insertPlace } from "../database/db"
 
 export const ADD_PLACE = 'ADD_PLACE';
 
@@ -18,19 +18,32 @@ export const addPlace = (title, location, image) => {
         // The code below takes exinsting image path and
         // Saves it into the new path on filesystem
         try {
-            await FileSystem.moveAsync({ from: image, to: newPath })
+            await FileSystem.moveAsync({
+                from: image,
+                to: newPath
+            })
+
+            // ADD PLACE into DATABASE
+            const insertDB = await insertPlace(
+                title,
+                newPath,
+                "Dummy Address",
+                15.6,
+                12.3
+            );
+            console.log(insertDB)
+
+            // Reducer ADD_PLACE (adds an item to store)
+            dispatch({
+                type: ADD_PLACE,
+                placeData: {
+                    id: insertDB.insertId,
+                    title: title,
+                    location: location,
+                    imageUri: newPath
+                }
+            })
+
         } catch (err) { console.log(err) }
-
-        // Reducer ADD_PLACE (adds an item to store)
-        dispatch({
-            type: ADD_PLACE,
-            placeData: {
-                id: id,
-                title: title,
-                location: location,
-                image: newPath
-            }
-        })
-
     }
 };

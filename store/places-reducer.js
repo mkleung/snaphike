@@ -9,10 +9,10 @@ export default (state = initialState, action) => {
     switch (action.type) {
         case ADD_PLACE:
             const newPlace = new Place(
-                action.placeData.id,
+                action.placeData.id.toString(),
                 action.placeData.title,
                 action.placeData.location,
-                action.placeData.image,
+                action.placeData.imageUri,
             );
             console.log(newPlace)
             return {
