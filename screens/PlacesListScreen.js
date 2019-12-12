@@ -32,7 +32,9 @@ const PlacesListScreen = props => {
                         style={styles.placeItem}>
                         <Image style={styles.image} source={{ uri: itemData.item.imageUri }} />
                         <View style={styles.infoContainer}>
-                            <Text style={styles.title}>{itemData.item.id} - {itemData.item.title}, {itemData.item.location}</Text>
+                            <Text style={styles.title}><Text style={{ fontWeight: 'bold' }}>{itemData.item.id}</Text> {itemData.item.title}</Text>
+                            <Text style={styles.title}><Text style={{ fontWeight: 'bold' }}>imageUri:</Text> {itemData.item.imageUri}</Text>
+                            <Text style={styles.title}><Text style={{ fontWeight: 'bold' }}>location:</Text> {itemData.item.location}</Text>
                         </View>
                     </TouchableOpacity>
                 )}
