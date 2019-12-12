@@ -19,11 +19,10 @@ const NewPlaceScreen = props => {
 
     // ADD PLACE
     const [titleValue, setTitleValue] = useState('');
-    const [locationValue, setLocationValue] = useState('');
     const dispatch = useDispatch();
 
     const savePlaceHandler = () => {
-        dispatch(placesActions.addPlace(titleValue, locationValue, selectedImage));
+        dispatch(placesActions.addPlace(titleValue, selectedImage));
         props.navigation.goBack();
     };
 
@@ -42,12 +41,6 @@ const NewPlaceScreen = props => {
                     onChangeText={(text) => setTitleValue(text)}
                     value={titleValue}
                     placeholder="Title"
-                />
-                <TextInput
-                    style={styles.textInput}
-                    onChangeText={(text) => { setLocationValue(text); }}
-                    value={locationValue}
-                    placeholder="Location"
                 />
                 <ImagePicker onImageTaken={imageTakenHandler} />
                 <Button

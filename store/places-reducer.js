@@ -11,7 +11,6 @@ export default (state = initialState, action) => {
             const newPlace = new Place(
                 action.placeData.id.toString(),
                 action.placeData.title,
-                action.placeData.location,
                 action.placeData.imageUri,
             );
             return {

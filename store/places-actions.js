@@ -3,7 +3,7 @@ import { insertPlace, fetchPlaces } from "../database/db"
 
 export const ADD_PLACE = 'ADD_PLACE';
 let previousId = 0;
-export const addPlace = (title, location, image) => {
+export const addPlace = (title, image) => {
     let id = previousId + 1;
     previousId = id;
 
@@ -37,7 +37,6 @@ export const addPlace = (title, location, image) => {
                 placeData: {
                     id: insertDB.insertId,
                     title: title,
-                    location: location,
                     imageUri: newPath
                 }
             })
