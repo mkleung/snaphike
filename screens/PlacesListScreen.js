@@ -1,11 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, Text, StyleSheet, Platform, Image, FlatList, TouchableOpacity } from 'react-native';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import Colors from '../constants/Colors';
 
+import * as placesActions from "../store/places-actions"
+
 const PlacesListScreen = props => {
     const places = useSelector(state => state.places.places);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(placesActions.loadPlaces());
+    }, [dispatch]);
+
 
     const onSelect = (title) => {
         props.navigation.navigate('PlaceDetail', {

@@ -23,7 +23,6 @@ export const init = () => {
 };
 
 // Insert Data into database
-
 export const insertPlace = (title, imageUri, address, lat, lng) => {
     const promise = new Promise((resolve, reject) => {
         db.transaction(tx => {
@@ -42,4 +41,21 @@ export const insertPlace = (title, imageUri, address, lat, lng) => {
     return promise;
 };
 
-
+// Fetch Data from database
+export const fetchPlaces = () => {
+    const promise = new Promise((resolve, reject) => {
+        db.transaction(tx => {
+            tx.executeSql(
+                'SELECT * FROM places',
+                [],
+                (_, result) => {
+                    resolve(result);
+                },
+                (_, err) => {
+                    reject(err);
+                }
+            );
+        });
+    });
+    return promise;
+};
