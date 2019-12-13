@@ -1,15 +1,34 @@
 import React from 'react';
-import { ScrollView, Image, View, Text, StyleSheet } from 'react-native';
+import { ScrollView, TouchableOpacity, Image, View, Text, StyleSheet } from 'react-native';
 import Colors from '../constants/Colors';
+import { useSelector, useDispatch } from 'react-redux';
 
 const DetailScreen = props => {
-    const placeTitle = props.navigation.getParam('placeTitle');
+    const placeId = props.navigation.getParam('placeId');
+
+    const onDelete = (id) => {
+        console.log(id)
+    }
+
+    // get all places
+    const selectedPlace = useSelector(state =>
+        state.places.places.find(place => place.id === placeId)
+    );
+
+    console.log(selectedPlace)
+
     return (
         <ScrollView contentContainerStyle={{ alignItems: 'center' }}>
+            <Image source={{ uri: selectedPlace.imageUri }} style={styles.image} />
             <View style={styles.locationContainer}>
                 <View style={styles.addressContainer}>
-                    <Text style={styles.address}>{placeTitle}</Text>
+                    <Text style={styles.title}>{selectedPlace.title}</Text>
+                    <Text style={styles.address}>{selectedPlace.address}</Text>
                 </View>
+                <TouchableOpacity
+                    onPress={() => onDelete(placeId)}>
+                    <Text>Delete</Text>
+                </TouchableOpacity>
             </View>
         </ScrollView>
     );
@@ -34,16 +53,13 @@ const styles = StyleSheet.create({
         maxWidth: 350,
         justifyContent: 'center',
         alignItems: 'center',
-        shadowColor: 'black',
-        shadowOpacity: 0.26,
-        shadowOffset: { width: 0, height: 2 },
-        shadowRadius: 8,
-        elevation: 5,
-        backgroundColor: 'white',
-        borderRadius: 10
     },
     addressContainer: {
         padding: 20
+    },
+    title: {
+        fontSize: 20,
+        fontWeight: 'bold',
     },
     address: {
         color: Colors.primary,

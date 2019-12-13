@@ -7,6 +7,8 @@ import Colors from '../constants/Colors';
 import * as placesActions from "../store/places-actions"
 
 const PlacesListScreen = props => {
+
+    // get all places
     const places = useSelector(state => state.places.places);
     const dispatch = useDispatch();
 
@@ -15,9 +17,9 @@ const PlacesListScreen = props => {
     }, [dispatch]);
 
 
-    const onSelect = (title) => {
+    const onSelect = (id) => {
         props.navigation.navigate('PlaceDetail', {
-            placeTitle: title
+            placeId: id
         });
     }
 
@@ -28,12 +30,11 @@ const PlacesListScreen = props => {
                 keyExtractor={(item, index) => index.toString()}
                 renderItem={itemData => (
                     <TouchableOpacity
-                        onPress={() => onSelect(itemData.item.title)}
+                        onPress={() => onSelect(itemData.item.id)}
                         style={styles.placeItem}>
                         <Image style={styles.image} source={{ uri: itemData.item.imageUri }} />
                         <View style={styles.infoContainer}>
                             <Text style={styles.title}>{itemData.item.id} - {itemData.item.title}</Text>
-
                         </View>
                     </TouchableOpacity>
                 )}
