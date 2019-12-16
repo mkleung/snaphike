@@ -9,9 +9,9 @@ import ReduxThunk from 'redux-thunk'
 import placesReducer from './store/places-reducer'
 
 // Database
-import { init } from './database/db'
+import { initDB } from './database/db'
 
-init()
+initDB()
   .then(() => { console.log("Initialize Database") })
   .catch(err => { console.log("Initialize Failed") });
 

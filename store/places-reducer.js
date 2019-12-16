@@ -1,4 +1,4 @@
-import { ADD_PLACE, LOAD_PLACES } from './places-actions';
+import { INSERT_PLACE, FETCH_PLACES, DELETE_PLACE } from './places-actions';
 import Place from '../models/Place';
 
 const initialState = {
@@ -7,7 +7,7 @@ const initialState = {
 
 export default (state = initialState, action) => {
     switch (action.type) {
-        case ADD_PLACE:
+        case INSERT_PLACE:
             const newPlace = new Place(
                 action.placeData.id.toString(),
                 action.placeData.title,
@@ -16,7 +16,7 @@ export default (state = initialState, action) => {
             return {
                 places: state.places.concat(newPlace)
             };
-        case LOAD_PLACES:
+        case FETCH_PLACES:
             return {
                 places: action.places.map(
                     pl =>
@@ -28,6 +28,12 @@ export default (state = initialState, action) => {
                             pl.lat,
                             pl.lng
                         )
+                )
+            };
+        case DELETE_PLACE:
+            return {
+                places: state.places.filter(place =>
+                    place.id !== action.placeData.id
                 )
             };
         default:

@@ -1,9 +1,10 @@
 import * as FileSystem from 'expo-file-system'
-import { insertPlace, fetchPlaces } from "../database/db"
+import { insertPlaceDB, fetchPlacesDB, deletePlaceDB } from "../database/db"
 
-export const ADD_PLACE = 'ADD_PLACE';
+// INSERT PLACE ACTION
+export const INSERT_PLACE = 'INSERT_PLACE';
 let previousId = 0;
-export const addPlace = (title, image) => {
+export const insertPlaceAction = (title, image) => {
     let id = previousId + 1;
     previousId = id;
 
@@ -22,18 +23,17 @@ export const addPlace = (title, image) => {
             })
 
             // ADD PLACE into DATABASE
-            const insertDB = await insertPlace(
+            const insertDB = await insertPlaceDB(
                 title,
                 newPath,
                 "Dummy Address",
                 15.6,
                 12.3
             );
-            console.log(insertDB)
 
             // Reducer ADD_PLACE (adds an item to store)
             dispatch({
-                type: ADD_PLACE,
+                type: INSERT_PLACE,
                 placeData: {
                     id: insertDB.insertId,
                     title: title,
@@ -46,16 +46,36 @@ export const addPlace = (title, image) => {
 };
 
 
-
-export const LOAD_PLACES = 'LOAD_PLACES';
-export const loadPlaces = () => {
+// FETCH PLACES ACTION
+export const FETCH_PLACES = 'FETCH_PLACES';
+export const fetchPlacesAction = () => {
     return async dispatch => {
         try {
-            const dbResult = await fetchPlaces();
-            console.log(dbResult);
-            dispatch({ type: LOAD_PLACES, places: dbResult.rows._array });
+            const dbResult = await fetchPlacesDB();
+            dispatch({ type: FETCH_PLACES, places: dbResult.rows._array });
         } catch (err) {
             throw err;
         }
     };
+};
+
+
+
+// DELETE PLACE ACTION
+export const DELETE_PLACE = 'DELETE_PLACE';
+export const deletePlaceAction = (id) => {
+    return async dispatch => {
+        try {
+
+            const deleteDB = await deletePlaceDB(
+                id
+            );
+            dispatch({
+                type: DELETE_PLACE,
+                placeData: {
+                    id: deleteDB.id
+                }
+            })
+        } catch (err) { console.log(err) }
+    }
 };

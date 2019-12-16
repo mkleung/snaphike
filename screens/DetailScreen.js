@@ -3,19 +3,24 @@ import { ScrollView, TouchableOpacity, Image, View, Text, StyleSheet } from 'rea
 import Colors from '../constants/Colors';
 import { useSelector, useDispatch } from 'react-redux';
 
+import * as placesActions from "../store/places-actions"
+
 const DetailScreen = props => {
     const placeId = props.navigation.getParam('placeId');
 
+    const dispatch = useDispatch();
+
     const onDelete = (id) => {
-        console.log(id)
+        dispatch(placesActions.deletePlaceAction(id));
+        props.navigation.navigate('ListPlaces', {
+            onBack: () => this.refresh()
+        });
     }
 
     // get all places
     const selectedPlace = useSelector(state =>
         state.places.places.find(place => place.id === placeId)
     );
-
-    console.log(selectedPlace)
 
     return (
         <ScrollView contentContainerStyle={{ alignItems: 'center' }}>

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
-import { View, Text, StyleSheet, Platform, Image, FlatList, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Platform, Image, FlatList, TouchableOpacity, Alert } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
+import { NavigationEvents } from 'react-navigation';
 
 import Colors from '../constants/Colors';
 
@@ -13,8 +14,14 @@ const PlacesListScreen = props => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(placesActions.loadPlaces());
+        dispatch(placesActions.fetchPlacesAction());
     }, [dispatch]);
+
+
+    const loadAllPlaces = (() => {
+        console.log("load all places")
+        dispatch(placesActions.fetchPlacesAction());
+    })
 
 
     const onSelect = (id) => {
@@ -25,6 +32,10 @@ const PlacesListScreen = props => {
 
     return (
         <View>
+            <NavigationEvents
+                onDidFocus={loadAllPlaces}
+            />
+
             <FlatList
                 data={places}
                 keyExtractor={(item, index) => index.toString()}

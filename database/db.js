@@ -4,7 +4,7 @@ import * as SQLite from "expo-sqlite";
 const db = SQLite.openDatabase('places.db');
 
 // Initialise database structure along with tables and fields
-export const init = () => {
+export const initDB = () => {
     const promise = new Promise((resolve, reject) => {
         db.transaction(tx => {
             tx.executeSql(
@@ -23,7 +23,7 @@ export const init = () => {
 };
 
 // Insert Data into database
-export const insertPlace = (title, imageUri, address, lat, lng) => {
+export const insertPlaceDB = (title, imageUri, address, lat, lng) => {
     const promise = new Promise((resolve, reject) => {
         db.transaction(tx => {
             tx.executeSql(
@@ -42,12 +42,34 @@ export const insertPlace = (title, imageUri, address, lat, lng) => {
 };
 
 // Fetch Data from database
-export const fetchPlaces = () => {
+export const fetchPlacesDB = () => {
     const promise = new Promise((resolve, reject) => {
         db.transaction(tx => {
             tx.executeSql(
                 'SELECT * FROM places',
                 [],
+                (_, result) => {
+                    resolve(result);
+                },
+                (_, err) => {
+                    reject(err);
+                }
+            );
+        });
+    });
+    return promise;
+};
+
+
+
+
+// Delete Data from database
+export const deletePlaceDB = (id) => {
+    const promise = new Promise((resolve, reject) => {
+        db.transaction(tx => {
+            tx.executeSql(
+                `DELETE FROM places where id=?;`,
+                [id],
                 (_, result) => {
                     resolve(result);
                 },
